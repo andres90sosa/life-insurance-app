@@ -25,7 +25,7 @@ export class PersonFormComponent implements OnInit {
 
   private initForm(): void {
     this.personForm = this.fb.group({
-      identification: ['', [Validators.required, Validators.maxLength(50)]],
+      identification: ['', [Validators.required, Validators.maxLength(8), Validators.pattern(/^\d+$/)]],
       fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       age: [null, [Validators.required, Validators.min(18), Validators.max(110)]],
       gender: ['', [Validators.required]],
