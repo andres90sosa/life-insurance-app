@@ -70,13 +70,16 @@ Aplicación web que permite registrar y gestionar personas, incluyendo datos per
     dotnet restore
     ```
 
-3. Aplicar migraciones y crear la base de datos:
+3. Ir a la carpeta `/backend/LifeInsurance.Infrastructure`:
+
+4. Aplicar migraciones y crear la base de datos:
 
     ```bash
-    dotnet ef database update
+    dotnet ef database update --context LifeInsuranceDbContext --project . --startup-project ../LifeInsurance.API
+    dotnet ef database update --context AppIdentityDbContext --project . --startup-project ../LifeInsurance.API
     ```
 
-4. Ejecutar la API:
+5. Ejecutar la API:
 
     ```bash
     dotnet run
