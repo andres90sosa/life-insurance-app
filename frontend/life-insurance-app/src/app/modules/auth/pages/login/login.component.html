@@ -1,0 +1,37 @@
+<mat-card class="login-card">
+  <h2 class="mat-headline-5">Iniciar sesión</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width" color="primary">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required />
+      <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+         <span *ngIf="email.errors?.['required']">El email es obligatorio.</span>
+         <span *ngIf="email.errors?.['email']">Debe ser un email válido.</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width" color="primary">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password" type="password" required />
+      <mat-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+        <span *ngIf="password?.hasError('required')">La contraseña es obligatoria</span>
+        <span *ngIf="password?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres</span>
+        <span *ngIf="!password?.hasError('minlength') && password?.hasError('pattern')">La contraseña debe tener al menos una mayúscula, una minúscula y un número.</span>
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" class="full-width mt-1" [disabled]="loginForm.invalid || isLoading">
+      <span class="loading-content" *ngIf="isLoading">
+        <mat-progress-spinner class="spinner" mode="indeterminate" diameter="20" color="accent"></mat-progress-spinner>
+        <span>Ingresando...</span>
+      </span>
+      <span *ngIf="!isLoading">Ingresar</span>
+    </button>
+  </form>
+
+  <p class="mt-1 text-center">
+    ¿No tienes cuenta? 
+    <a routerLink="/auth/register">Regístrate aquí</a>
+  </p>
+</mat-card>

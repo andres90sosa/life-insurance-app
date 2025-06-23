@@ -1,0 +1,56 @@
+<mat-card class="form-card">
+  <h2>{{ isEditMode ? 'Editar Persona' : 'Nueva Persona' }}</h2>
+
+  <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width form-field">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="identification" />
+      <mat-error *ngIf="personForm.get('identification')?.hasError('required')">El DNI es obligatorio</mat-error>
+      <mat-error *ngIf="personForm.get('identification')?.hasError('maxlength')">Debe tener no más de 50 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width form-field">
+      <mat-label>Nombre y Apellido</mat-label>
+      <input matInput formControlName="fullName" />
+      <mat-error *ngIf="personForm.get('fullName')?.hasError('required')">El nombre completo es obligatorio</mat-error>
+      <mat-error *ngIf="personForm.get('fullName')?.hasError('minlength')">Debe tener al menos 3 caracteres</mat-error>
+      <mat-error *ngIf="personForm.get('fullName')?.hasError('maxlength')">Debe tener no más de 100 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width form-field">
+      <mat-label>Edad</mat-label>
+      <input matInput type="number" formControlName="age" />
+      <mat-error *ngIf="personForm.get('age')?.hasError('required')">La edad es obligatoria</mat-error>
+      <mat-error *ngIf="personForm.get('age')?.hasError('min')">La edad mínima es 18</mat-error>
+      <mat-error *ngIf="personForm.get('age')?.hasError('max')">La edad máxima es 110</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width form-field">
+      <mat-label>Género</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="Masculino">Masculino</mat-option>
+        <mat-option value="Femenino">Femenino</mat-option>
+        <mat-option value="Otro">Otro</mat-option>
+      </mat-select>
+      <mat-error *ngIf="personForm.get('gender')?.hasError('required')">El género es obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="form-field checkbox-group">
+      <mat-checkbox formControlName="isActive">¿Está activo?</mat-checkbox><br />
+      <mat-checkbox formControlName="drives">¿Maneja?</mat-checkbox><br />
+      <mat-checkbox formControlName="usesGlasses">¿Usa lentes?</mat-checkbox><br />
+      <mat-checkbox formControlName="isDiabetic">¿Es diabético?</mat-checkbox><br />
+    </div>
+
+    <mat-form-field appearance="fill" class="full-width form-field">
+      <mat-label>Otras enfermedades</mat-label>
+      <textarea matInput formControlName="otherDiseases" rows="3"></textarea>
+      <mat-error *ngIf="personForm.get('otherDiseases')?.hasError('maxlength')">Debe tener no más de 200 caracteres</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid">
+      {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </form>
+</mat-card>
+

@@ -1,0 +1,47 @@
+# Compilados y temporales
+**/bin/
+**/obj/
+
+# Configuración de Visual Studio
+/backend/.vs/
+*.suo
+*.user
+*.csproj.user
+
+
+# Archivos de build
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# Reportes de cobertura y tests
+/backend/CoverageReport/
+/backend/LifeInsurance.Tests/TestResults/
+
+# Secrets / configuración local
+/backend/LifeInsurance.API/appsettings.Development.json
+*.db
+
+# Node modules
+**/node_modules/
+
+# Build outputs
+**/dist/
+**/.angular/
+
+# Configuración de herramientas
+**/.vscode/
+
+
+# SO y temporales
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Entornos virtuales
+*.env
+*.env.local
