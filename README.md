@@ -108,8 +108,9 @@ La API quedará disponible en https://localhost:7016
 La aplicación estará disponible en http://localhost:4200
 
 ### Pruebas
+
 Desde la raíz del proyecto de tests:
 
-    ```bash
-    dotnet test
-    ```
+```bash
+dotnet test
+```
