@@ -5,10 +5,10 @@ using LifeInsurance.Infrastructure.Identity;
 using LifeInsurance.Infrastructure.Persistence;
 using LifeInsurance.Infrastructure.Services;
 using LifeInsurance.Tests.Utils;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -19,7 +19,6 @@ namespace LifeInsurance.Tests.Services
     {
         private readonly IFixture _fixture;
         private readonly Mock<UserManager<ApplicationUser>> _userManagerMock;
-        private readonly Mock<AppIdentityDbContext> _dbContextMock;
         private readonly IOptions<JwtSettings> _jwtOptions;
         private readonly AuthService _authService;
 
@@ -40,7 +39,11 @@ namespace LifeInsurance.Tests.Services
                 Mock.Of<ILogger<UserManager<ApplicationUser>>>()
             );
 
-            _dbContextMock = new Mock<AppIdentityDbContext>();
+            var dbContextOptions = new DbContextOptionsBuilder<AppIdentityDbContext>()
+                .UseInMemoryDatabase("TestDb_AuthService")
+                .Options;
+
+            var dbContext = new AppIdentityDbContext(dbContextOptions);
 
             var jwtSettings = new JwtSettings
             {
@@ -52,7 +55,7 @@ namespace LifeInsurance.Tests.Services
 
             _jwtOptions = Options.Create(jwtSettings);
             var fakeSignInManager = new FakeSignInManager(_userManagerMock.Object);
-            _authService = new AuthService(_userManagerMock.Object, fakeSignInManager, _jwtOptions, _dbContextMock.Object);
+            _authService = new AuthService(_userManagerMock.Object, fakeSignInManager, _jwtOptions, dbContext);
         }
 
         [Fact]
@@ -66,6 +69,7 @@ namespace LifeInsurance.Tests.Services
             var hashedPassword = passwordHasher.HashPassword(user, password);
             user.PasswordHash = hashedPassword;
             _userManagerMock.Setup(u => u.FindByEmailAsync(email)).ReturnsAsync(user);
+            _userManagerMock.Setup(u => u.GetRolesAsync(user)).ReturnsAsync(new List<string> { "User" });
 
             // Act
             var token = await _authService.LoginAsync(email, password);
