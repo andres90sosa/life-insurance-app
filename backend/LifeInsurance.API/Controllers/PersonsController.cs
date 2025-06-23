@@ -23,7 +23,6 @@ namespace LifeInsurance.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAsync([FromBody] CreatePersonDto request)
         {
             var command = _mapper.Map<CreatePersonCommand>(request);
@@ -58,7 +57,6 @@ namespace LifeInsurance.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdatePersonDto request)
         {
             var command = _mapper.Map<UpdatePersonCommand>(request);
@@ -69,7 +67,6 @@ namespace LifeInsurance.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var result = await _mediator.Send(new DeletePersonCommand { Id = id });
