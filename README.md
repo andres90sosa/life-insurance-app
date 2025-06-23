@@ -23,7 +23,6 @@ Aplicación web que permite registrar y gestionar personas, incluyendo datos per
 - Interceptores HTTP
 - RxJS
 
----
 
 ## Estructura del proyecto
 
@@ -42,6 +41,7 @@ Aplicación web que permite registrar y gestionar personas, incluyendo datos per
 │ └── life-insurance-app # Proyecto Angular
 │
 └── README.md
+```
 
 
 ## Instrucciones de instalación
@@ -62,19 +62,25 @@ Aplicación web que permite registrar y gestionar personas, incluyendo datos per
 
    ```bash
    cd backend/LifeInsurance.API
+   ```
 
 2. Restaurar dependencias:
 
     ```bash
     dotnet restore
+    ```
 
 3. Aplicar migraciones y crear la base de datos:
+
     ```bash
     dotnet ef database update
+    ```
 
 4. Ejecutar la API:
+
     ```bash
     dotnet run
+    ```
 
 La API quedará disponible en https://localhost:7016
 
@@ -82,20 +88,28 @@ La API quedará disponible en https://localhost:7016
 ### Frontend
 
 1. Ir a la carpeta del proyecto Angular:
+
     ```bash
     cd frontend/life-insurance-app
+    ```
 
 2. Instalar dependencias:
+
     ```bash
     npm install
+    ```
 
 3. Ejecutar la aplicación:
+
     ```bash
     ng serve -o
+    ```
 
 La aplicación estará disponible en http://localhost:4200
 
 ### Pruebas
 Desde la raíz del proyecto de tests:
+
     ```bash
     dotnet test
+    ```
