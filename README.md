@@ -27,6 +27,7 @@ Aplicación web que permite registrar y gestionar personas, incluyendo datos per
 
 ## Estructura del proyecto
 
+```text
 /life-insurance-app
 │
 ├── /backend
